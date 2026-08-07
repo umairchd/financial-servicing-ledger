@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Financial Servicing Ledger - Demo</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+  h1 { font-size: 1.3rem; }
+  #balance { font-size: 2rem; font-weight: bold; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+  button { padding: 0.5rem 0.9rem; cursor: pointer; }
+  button:disabled { cursor: not-allowed; opacity: 0.5; }
+  #banner { padding: 0.6rem; margin: 0.75rem 0; border-radius: 4px; display: none; }
+  #banner.ok { display: block; background: #d7f4d7; border: 1px solid #4caf50; }
+  #banner.error { display: block; background: #fbdada; border: 1px solid #e53935; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-size: 0.85rem; }
+  th, td { border: 1px solid #ccc; padding: 0.4rem 0.5rem; text-align: left; }
+  th { background: #f0f0f0; }
+  .debit { color: #c62828; }
+  .credit { color: #2e7d32; }
+</style>
+</head>
+<body>
+  <h1>Financial Servicing Ledger &mdash; Demo</h1>
+  <p>Demonstration UI only.</p>
+
+  <div>Current balance</div>
+  <div id="balance">&hellip;</div>
+
+  <div class="actions">
+    <button id="btn-pay">Record $400 payment</button>
+    <button id="btn-pay-dup" disabled>Attempt same $400 payment again (duplicate)</button>
+    <button id="btn-fee">Assess $25 late fee</button>
+    <button id="btn-partial">Record $200 partial payment</button>
+    <button id="btn-reverse" disabled>Reverse original $400 payment</button>
+  </div>
+
+  <div id="banner"></div>
+
+  <h2>Transaction history (chronological)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Direction</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Payment group</th>
+        <th>Reverses</th>
+      </tr>
+    </thead>
+    <tbody id="history-body"></tbody>
+  </table>
+
+  <script src="app.js"></script>
+</body>
+</html>
