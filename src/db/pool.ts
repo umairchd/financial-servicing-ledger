@@ -1,7 +1,11 @@
 import { Pool, PoolClient } from 'pg';
 
+const connectionString = process.env.DATABASE_URL;
+const isLocal = /localhost|127\.0\.0\.1/.test(connectionString ?? '');
+
 export const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString,
+  ssl: isLocal ? undefined : { rejectUnauthorized: false },
 });
 
 export async function withTransaction<T>(
