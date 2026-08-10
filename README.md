@@ -42,6 +42,27 @@ npm run test:integration   # full HTTP -> DB flow, requires ledger_test migrated
 npm test                   # both
 ```
 
+### Deploying to Vercel (optional)
+
+Not required by the exercise, but the app is structured to support it:
+`api/index.ts` exports the Express `app` directly (Express apps are callable
+as `(req, res)`, matching Vercel's Node handler signature), and `vercel.json`
+rewrites `/api/*` to that function; static files in `public/` are served
+automatically by Vercel without going through the function at all.
+
+1. Push the repo to GitHub and import it in Vercel (or run `vercel`).
+2. In the Vercel project's Environment Variables, set `DATABASE_URL` to your
+   Neon **pooled** connection string (the `-pooler` hostname) — production
+   traffic can spin up many concurrent function instances, and Neon's pooler
+   (PgBouncer) is what keeps that from exhausting the database's direct
+   connection limit. `src/db/pool.ts` also caps its own pool size (`max: 3`
+   outside `localhost`) for the same reason.
+3. Apply migrations to Neon from your machine before deploying — this app
+   doesn't run migrations automatically on deploy, deliberately, since a
+   schema change should be an explicit, reviewed step, not a side effect of
+   every push (`npm run migrate up` with `.env`'s `DATABASE_URL` pointed at
+   Neon; see above).
+
 ## Architecture
 
 ### Data model

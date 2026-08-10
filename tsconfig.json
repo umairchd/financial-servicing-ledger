@@ -14,5 +14,5 @@
     "declaration": false,
     "sourceMap": false
   },
-  "include": ["src", "test", "migrations"]
+  "include": ["src", "test", "migrations", "api"]
 }
