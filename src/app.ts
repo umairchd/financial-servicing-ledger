@@ -45,3 +45,8 @@ app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err);
   return res.status(500).json({ error: 'internal_error', message: 'Unexpected error' });
 });
+
+// Vercel's "Express" framework preset zero-config detection looks for a
+// default export here (in addition to api/index.ts) to wrap as the
+// serverless function.
+export default app;
